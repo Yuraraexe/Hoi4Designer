@@ -2,24 +2,33 @@ const initialPlayerData =
 {
     "Yurara" : {
         "name" : "Yurara",
-        "attack" : 10,
-        "defence": 5,
+        "attack" : 30,
+        "defence": 2,
         "hp" : 100
     },
     "Yuminty" : {
         "name" : "Yuminty",
         "attack" : 5,
-        "defence" : 10,
+        "defence" : 1,
         "hp" : 50
     }
 }
-var playerData = initialPlayerData
+var playerData = initialPlayerData;
+function show(){
+    console.log(initialPlayerData["Yuminty"].hp);
+}
+show();
 function attack(attacker, target){
-    playerData[target].hp -= playerData[attacker].attack
+    var damage = playerData[attacker].attack / playerData[target].defence;
+    show();
+    playerData[target].hp -= damage;
+    show();
+    console.log(attacker + " attacks " + target + "\n" + damage + " Damege to " + target);
+    show();
+    console.log(target + " HP : " + playerData[target].hp + " / " + initialPlayerData[target].hp);
 }
 function fight(fighter0, fighter1){
-    console.log("fight!")
-    attack(fighter0, fighter1)
-    console.log(fighter1 + " hp : " + playerData[fighter1].hp)
+    console.log("Fight!");
+    attack(fighter0, fighter1);
 }
-fight("Yurara", "Yuminty")
+fight("Yurara", "Yuminty");
