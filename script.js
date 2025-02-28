@@ -20,6 +20,6 @@ function attack(attacker, target){
 function fight(fighter0, fighter1){
     console.log("fight!")
     attack(fighter0, fighter1)
-    console(fighter1 + " hp : " + playerData[fighter1].hp)
+    console.log(fighter1 + " hp : " + playerData[fighter1].hp)
 }
 fight("Yurara", "Yuminty")
