@@ -8,27 +8,53 @@ const initialPlayerData =
     },
     "Yuminty" : {
         "name" : "Yuminty",
-        "attack" : 5,
+        "attack" : 500,
         "defence" : 1,
         "hp" : 50
     }
 }
-var playerData = initialPlayerData;
+var playerData = JSON.parse(JSON.stringify(initialPlayerData));
 function show(){
     console.log(initialPlayerData["Yuminty"].hp);
 }
-show();
 function attack(attacker, target){
     var damage = playerData[attacker].attack / playerData[target].defence;
-    show();
     playerData[target].hp -= damage;
-    show();
+    if (playerData[target].hp < 0){
+        playerData[target].hp = 0;
+    }
     console.log(attacker + " attacks " + target + "\n" + damage + " Damege to " + target);
-    show();
     console.log(target + " HP : " + playerData[target].hp + " / " + initialPlayerData[target].hp);
+}
+function fightTurn(fighter0, fighter1){
+    console.log(fighter0 + "'s turn!");
+    attack(fighter0, fighter1);
+}
+function fightPhase(fighter0, fighter1){
+    fightTurn(fighter0, fighter1);
+    if (playerData[fighter1].hp == 0){
+        return;
+    }
+    fightTurn(fighter1, fighter0);
+}
+function win(winner){
+    console.log(winner + " WIN!");
 }
 function fight(fighter0, fighter1){
     console.log("Fight!");
-    attack(fighter0, fighter1);
+    var countPhase = 0;
+    while (playerData[fighter0].hp != 0 && playerData[fighter1].hp != 0){
+        countPhase ++;
+        console.log("Phase " + countPhase);
+        fightPhase(fighter0, fighter1);
+    }
+    switch (0){
+        case playerData[fighter0].hp:
+            win(fighter1);
+            break;
+        case playerData[fighter1].hp:
+            win(fighter0);
+            break;
+    }
 }
 fight("Yurara", "Yuminty");
